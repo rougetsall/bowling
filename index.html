@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Player 2- VR bowling</title>
+    <meta name="description" content="Hello, WebVR! - A-Frame">
+    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://rawgit.com/mayognaise/aframe-mouse-cursor-component/master/dist/aframe-mouse-cursor-component.min.js"></script>
+    <script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script>
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.21.2.js"></script>
+  </head>
+  
+  <body>
+	<a-scene background="color: #FFFFFF" physics="friction: 0.001; restitution: 0.3; iterations: 30;" >
+        <a-assets>
+            <img id="floor" src="https://cdn.glitch.com/a385d449-4e52-40a5-b469-63598fd25f17%2Ffloor-1024.jpg?1532125960968">
+        </a-assets>
+          
+    <a-entity id="wrapper" position="0 3 6" move-rig>
+            <a-entity id="camera" camera wasd-controls look-controls mouse-cursor>
+              <a-cursor id="cursor" fuse="true"></a-cursor>
+            </a-entity>
+        </a-entity>
+        
+            <!-- Ground -->
+        <a-plane src="#floor" rotation="-90 0 0" scale="10000 10000 1" repeat="1000 1000" static-body></a-plane>
+
+        <a-sphere id="ball" color="#00AA00" position="0 1.325 3.4" radius="0.35" grabbable  track-position>
+        </a-sphere>
+
+        <a-box position="0 4 -11" scale="24 8 1" color="#0099cc" static-body="mass:15"></a-box>
+
+        <a-box id="refresh" position="0 7 -10.9" scale="4 1 1" color="#ccc" static-body="mass:1" refresh></a-box>
+        <a-text position="-1.6 7 -10.3" value="NEW GAME" color="black" wrap-count="15"></a-text>
+
+        <a-box position="0 0.48 -2.49" color="#ffff00" width="4" height="14" rotation="90 0 0" static-body></a-box>
+        <a-box  position="0 0.98 4" scale="4 0.01 1" color="#93620a" rotation="0 0 0" static-body start-line></a-box>
+        <a-text  position="-1.2 1 4.3" rotation="-90 0 0" value="Cliquez ici pour repositionner " color="#fff" wrap-count="65"></a-text>
+
+
+        <a-triangle id="center" color="#ccc" position="0 1.02 1" rotation="-90 0 0" vertex-a="0 0.225 0" vertex-b="-0.225 -0.225 0" vertex-c="0.225 -0.225 0" static-body="mass:15" center></a-triangle>
+        <a-triangle id="far-left" color="#CCC" position="1 1.02 1" rotation="-90 0 0" vertex-a="0 0.225 0" vertex-b="-0.225 -0.225 0" vertex-c="0.225 -0.225 0" static-body="mass:15" far-right></a-triangle>
+        <a-triangle id="far-right" color="#CCC" position="-1 1.02 1" rotation="-90 0 0" vertex-a="0 0.225 0" vertex-b="-0.225 -0.225 0" vertex-c="0.225 -0.225 0" static-body="mass:15" far-left></a-triangle>
+        <a-triangle id="left" color="#CCC" position="0.5 1.02 1" rotation="-90 0 0" vertex-a="0 0.225 0" vertex-b="-0.225 -0.225 0" vertex-c="0.225 -0.225 0" static-body="mass:15" right></a-triangle>
+        <a-triangle id="right" color="#CCC" position="-0.5 1.02 1" rotation="-90 0 0" vertex-a="0 0.225 0" vertex-b="-0.225 -0.225 0" vertex-c="0.225 -0.225 0" static-body="mass:15" left></a-triangle>
+         <a-box position="-3.3 0.48 -3.49" color="#666666" width="0.4" height="16" rotation="90 0 0" static-body></a-box>
+        <a-box position="3.3 0.48 -3.49" color="#666666" width="0.4" height="16" rotation="90 0 0" static-body></a-box>
+        <a-cylinder id="one" radius="0.1" height="0.6" position="0 1.27 -4.5" color="#ccc" dynamic-body="mass: 1.25"></a-cylinder>
+        <a-cylinder id="two" radius="0.1" height="0.6" position="-0.3 1.27 -6" color="#ccc" dynamic-body="mass: 1.25"></a-cylinder>
+        <a-cylinder id="three" radius="0.1" height="0.6" position="0.3 1.27 -5" color="#ccc" dynamic-body="mass: 1.25"></a-cylinder>
+        <a-cylinder id="four" radius="0.1" height="0.6" position="0 1.27 -5.5" color="#ccc" dynamic-body="mass: 1.25"></a-cylinder>
+        <a-cylinder id="five" radius="0.1" height="0.6" position="-0.5 1.27 -5.5" color="#ccc" dynamic-body="mass: 1.25"></a-cylinder>
+        <a-cylinder id="six" radius="0.1" height="0.6" position="0.5 1.27 -5.5" color="#ccc" dynamic-body="mass: 1.25"></a-cylinder>
+        <a-cylinder id="seven" radius="0.1" height="0.6" position="-0.3 1.27 -5" color="#ccc" dynamic-body="mass: 1.25"></a-cylinder>
+        <a-cylinder id="eight" radius="0.1" height="0.6" position="0.3 1.27 -6" color="#ccc" dynamic-body="mass: 1.25"></a-cylinder>
+        <a-cylinder id="nine" radius="0.1" height="0.6" position="-0.85 1.27 -6" color="#ccc" dynamic-body="mass: 1.25"></a-cylinder>
+        <a-cylinder id="ten" radius="0.1" height="0.6" position="0.85 1.27 -6" color="#ccc" dynamic-body="mass: 1.25"></a-cylinder>
+    </a-scene>
+  <script src="app.js"></script>
+</body>
+</html>
